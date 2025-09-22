@@ -2,10 +2,30 @@
 Sovereign Framework Implementation for OSINT
 Based on Sarah Marion's ethical framework for decolonial data practices
 """
+from .kenyan_context import KenyanContextValidator
+
 
 class EthicalViolation(Exception):
     """Raised when Sovereign Framework is violated"""
     pass
+
+class SovereignEthicalFramework:
+    """
+    Main ethical framework implementing Sarah Marion's Sovereign Principles
+    Sovereignty, Guardianship, Reciprocity
+    """
+    
+    def __init__(self):
+        self.kenyan_context = KenyanContextValidator()  # This should work now
+        self.boundaries = self._load_ethical_boundaries()
+    
+    def _load_ethical_boundaries(self) -> dict:
+        """Load absolute prohibitions from config"""
+        import json
+        import os
+        config_path = os.path.join(os.path.dirname(__file__), '..', '..', 'config', 'ethical_boundaries.json')
+        with open(config_path, 'r') as f:
+            return json.load(f)
 
 class KenyanContextValidator:
     """Ensures operations respect Kenyan cultural and political context"""
