@@ -1,6 +1,4 @@
-# SGR-OSINT: Decolonial Intelligence Framework
-
-# The SGR-OSINT Manifesto
+# The Sovereign OSINT Toolkit Manifesto
 ## Ethical OSINT in a Colonial Data Economy
 ### By Sarah Marion
 

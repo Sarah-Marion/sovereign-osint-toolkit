@@ -1,4 +1,4 @@
-# SGR-OSINT: Decolonial Intelligence Framework
+# Sovereign OSINT Toolkit: Decolonial Intelligence Framework
 ## By Sarah Marion
 
 > "When algorithms become colonial instruments, we build tools of digital sovereignty. 
@@ -6,11 +6,11 @@
 
 ### The Colonial Algorithm Problem
 
-Most OSINT tools emerge from Western security paradigms that treat Global South data as extractive resources. This framework challenges that paradigm through the SGR Protocol: **Sovereignty, Guardianship, Reciprocity**.
+Most OSINT tools emerge from Western security paradigms that treat Global South data as extractive resources. This framework challenges that paradigm through the Sovereign Framework: **Sovereignty, Guardianship, Reciprocity**.
 
 ### Kenyan-Focused Intelligence
 
-Unlike generic OSINT tools, SGR-OSINT understands that:
+Unlike generic OSINT tools, Sovereign OSINT Toolkit understands that:
 - Kenyan data requires Kenyan context
 - Nairobi is not Kansas—geopolitical realities differ
 - Our ethics are non-negotiable, not optional features

@@ -1,10 +1,10 @@
 """
-SGR Protocol Implementation for OSINT
+Sovereign Framework Implementation for OSINT
 Based on Sarah Marion's ethical framework for decolonial data practices
 """
 
 class EthicalViolation(Exception):
-    """Raised when SGR Protocol is violated"""
+    """Raised when Sovereign Framework is violated"""
     pass
 
 class KenyanContextValidator:
@@ -29,9 +29,9 @@ class KenyanContextValidator:
                     )
         return True
 
-class SGREthicalFramework:
+class SovereignEthicalFramework:
     """
-    Main ethical framework implementing Sarah Marion's SGR Protocol
+    Main ethical framework implementing Sarah Marion's Sovereign Framework
     Sovereignty, Guardianship, Reciprocity
     """
     
@@ -61,7 +61,7 @@ class SGREthicalFramework:
         for prohibited_action in self.boundaries["never_do"]:
             if self._detects_prohibited_pattern(target, purpose, prohibited_action):
                 raise EthicalViolation(
-                    f"Operation violates SGR Protocol: {prohibited_action}"
+                    f"Operation violates Sovereign Framework: {prohibited_action}"
                 )
         
         # Kenyan context validation
