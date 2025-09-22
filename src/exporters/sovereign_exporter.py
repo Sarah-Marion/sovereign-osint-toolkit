@@ -6,7 +6,9 @@ By Sarah Marion
 
 import json
 import csv
-import pandas as pd
+# import pandas as pd 
+# Remove pandas import and implement lightweight alternative
+import io
 from datetime import datetime
 from typing import Dict, List, Any
 from pathlib import Path
@@ -17,10 +19,14 @@ class SovereignExporter:
     """Export system that preserves Kenyan context for different user types"""
     
     def __init__(self):
+        # Remove pandas-dependent initialization
+        from ..utils.kenyan_context import KenyanContextValidator
+        from ..utils.anonymization import KenyanAnonymization
+        
         self.kenyan_context = KenyanContextValidator()
         self.anonymizer = KenyanAnonymization()
         
-        # Export templates for different user types
+        # Export templates for different user types (unchanged)
         self.export_templates = {
             "journalist": {
                 "format": "investigative_report",
@@ -43,6 +49,7 @@ class SovereignExporter:
                 "kenyan_context": ["local_data_standards", "infrastructure_considerations"]
             }
         }
+
     
     def export_data(self, data: List[Dict], user_type: str, export_format: str = "json") -> Dict:
         """Main export function with user-type specific formatting"""
@@ -207,28 +214,29 @@ class SovereignExporter:
         }
     
     def _export_csv(self, data: List[Dict], user_type: str) -> Dict:
-        """Export data as CSV with user-type specific columns"""
+        """Export data as CSV with user-type specific columns - lightweight version"""
         
         if not data:
             return {"format": "csv", "content": "", "filename": "empty_export.csv", "size_estimate": 0}
         
-        # Flatten data for CSV
+        # Flatten data for CSV (lightweight implementation)
         flattened_data = []
         for item in data:
             flat_item = self._flatten_dict(item)
             flattened_data.append(flat_item)
         
-        # Create CSV content
-        import io
+        # Create CSV content using standard library only
         output = io.StringIO()
         
         if flattened_data:
             fieldnames = flattened_data[0].keys()
             writer = csv.DictWriter(output, fieldnames=fieldnames)
             writer.writeheader()
-            writer.writerows(flattened_data)
+            for row in flattened_data:
+                writer.writerow(row)
         
         csv_content = output.getvalue()
+        output.close()
         
         return {
             "format": "csv",
@@ -237,6 +245,30 @@ class SovereignExporter:
             "size_estimate": len(csv_content)
         }
     
+
+    def _calculate_overall_kenyan_relevance(self, data: List[Dict]) -> float:
+        """Lightweight Kenyan relevance calculation without pandas"""
+        if not data:
+            return 0.0
+        
+        total_relevance = 0.0
+        count = 0
+        
+        for item in data:
+            if 'kenyan_relevance' in item:
+                total_relevance += item['kenyan_relevance']
+                count += 1
+            else:
+                # Estimate relevance based on content
+                content = str(item).lower()
+                kenyan_indicators = ['kenya', 'nairobi', 'mombasa', 'county', 'kes']
+                relevance_score = sum(1 for indicator in kenyan_indicators if indicator in content) / len(kenyan_indicators)
+                total_relevance += relevance_score
+                count += 1
+        
+        return total_relevance / count if count > 0 else 0.0
+
+
     def _export_pdf(self, data: List[Dict], user_type: str) -> Dict:
         """Export data as PDF report (simplified version)"""
         # In a full implementation, this would use ReportLab or similar
