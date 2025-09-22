@@ -1,0 +1,23 @@
+{
+    "never_do": {
+        "personal_harassment": "Target individuals for harassment, doxxing, or intimidation",
+        "financial_exploitation": "Use OSINT for financial manipulation, fraud, or unauthorized commercial gain",
+        "government_subversion": "Undermine legitimate Kenyan governance institutions",
+        "cultural_appropriation": "Extract indigenous knowledge without community consent and benefit",
+        "mass_surveillance": "Conduct blanket surveillance on Kenyan populations",
+        "data_weaponization": "Weaponize data against vulnerable communities",
+        "consent_violation": "Bypass informed consent protocols for personal data",
+        "context_removal": "Analyze Kenyan data without proper cultural and historical context"
+    },
+    "sgr_principles": {
+        "sovereignty": "Kenyan data remains under Kenyan jurisdiction and control",
+        "guardianship": "We are temporary stewards of data, not owners",
+        "reciprocity": "Knowledge exchange must provide tangible benefits to Kenyan communities"
+    },
+    "approved_use_cases": {
+        "journalism": ["public_accountability", "corruption_investigation", "human_rights_reporting"],
+        "activism": ["community_organizing", "policy_advocacy", "transparency_campaigns"],
+        "corporate_intelligence": ["market_research", "regulatory_compliance", "risk_assessment"],
+        "academic_research": ["policy_analysis", "social_science_research", "technical_research"]
+    }
+}

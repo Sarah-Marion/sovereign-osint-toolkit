@@ -1,0 +1,28 @@
+{
+    "counties": {
+        "nairobi": {
+            "population": 4397073,
+            "official_languages": ["Swahili", "English"],
+            "sensitive_issues": ["urban inequality", "housing rights", "political demonstrations"],
+            "data_sources": ["NCC portal", "KNBS Nairobi data", "county government APIs"]
+        },
+        "mombasa": {
+            "population": 1208333,
+            "official_languages": ["Swahili", "English"],
+            "sensitive_issues": ["port operations", "coastal land rights", "tourism economy"],
+            "data_sources": ["Mombasa County API", "KPA data", "tourism board statistics"]
+        },
+        "kisumu": {
+            "population": 1155574,
+            "official_languages": ["Dholuo", "Swahili", "English"],
+            "sensitive_issues": ["lake resources", "fishing rights", "regional development"],
+            "data_sources": ["Kisumu County portal", "LVBC data", "research institution APIs"]
+        }
+    },
+    "national_context": {
+        "political_structure": "Devolved government with 47 counties",
+        "legal_framework": "Data Protection Act, 2019 applies",
+        "cultural_norms": ["Respect for elders", "Community consultation", "Indirect communication styles"],
+        "sensitive_historical_context": ["Colonial legacy", "Land allocation history", "Tribal relations"]
+    }
+}
