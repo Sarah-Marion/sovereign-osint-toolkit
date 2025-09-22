@@ -5,6 +5,7 @@ By Sarah Marion
 """
 
 import re
+import hashlib
 from typing import Dict, List, Any
 
 class KenyanAnonymization:
