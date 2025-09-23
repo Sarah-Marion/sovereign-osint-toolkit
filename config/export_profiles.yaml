@@ -1,0 +1,20 @@
+export_profiles:
+  journalist:
+    required_fields: ["title", "source", "verification_status", "public_interest"]
+    sensitivity_level: "public"
+    kenyan_context: ["regional_impact", "stakeholder_analysis"]
+    
+  researcher:
+    required_fields: ["methodology", "limitations", "citations", "replicability"]
+    sensitivity_level: "research"
+    kenyan_context: ["cultural_validity", "local_adaptation"]
+    
+  ngo:
+    required_fields: ["community_impact", "policy_recommendations", "sustainability"]
+    sensitivity_level: "community"
+    kenyan_context: ["local_partnerships", "advocacy_opportunities"]
+    
+  developer:
+    required_fields: ["data_schema", "api_spec", "technical_limitations"]
+    sensitivity_level: "technical"
+    kenyan_context: ["infrastructure_requirements", "compliance"]
