@@ -27,10 +27,11 @@ class SovereignMLDetector:
         
         # Kenyan-specific patterns and entities
         self.kenyan_entities = {
-            'counties': ['nairobi', 'mombasa', 'kisumu', 'nakuru', 'eldoret', 'kakamega'],
-            'political_figures': ['ruto', 'raila', 'mudavadi', 'kalenjin', 'kikuyu', 'luo'],
-            'economic_terms': ['kes', 'shilling', 'mpesa', 'safaricom', 'agriculture', 'tourism'],
-            'infrastructure': ['sgr', 'highway', 'port', 'airport', 'energy', 'water']
+            'counties': ['nairobi', 'mombasa', 'kisumu', 'nakuru', 'eldoret', 'kakamega', 'kisii', 'nyeri'],
+            'political_figures': ['ruto', 'raila', 'mudavadi', 'uhuru', 'odinga', 'kibaki', 'moi', 'rigathi'],
+            'ethnic_communities': ['kalenjin', 'kikuyu', 'luo', 'luhya', 'kamba', 'kisii', 'meru', 'somali'],
+            'economic_terms': ['kes', 'shilling', 'mpesa', 'safaricom', 'agriculture', 'tourism', 'economy', 'development'],
+            'infrastructure': ['sgr', 'highway', 'port', 'airport', 'energy', 'water', 'road', 'construction']
         }
 
     def detect_patterns(self, data: List[Dict]) -> Dict[str, Any]:
@@ -278,7 +279,7 @@ class SovereignMLDetector:
         """Analyze trends in OSINT data"""
         
         if len(data) < 3:
-            return {"trends": [], "confidence": 0.0}
+            return {"activity_trend": "insufficient_data", "topic_trends": {}, "analysis_period": {}}
         
         # Temporal trends
         daily_counts = defaultdict(int)
@@ -337,6 +338,18 @@ class SovereignMLDetector:
             return "decreasing"
         else:
             return "stable"
+
+    def _analyze_topic_trends(self, data: List[Dict]) -> Dict[str, Any]:
+        """Analyze topic trends over time"""
+        # Simplified topic trend analysis
+        topic_counts = Counter()
+        for item in data:
+            text = self._extract_text(item).lower()
+            for topic in ['development', 'infrastructure', 'education', 'health', 'agriculture']:
+                if topic in text:
+                    topic_counts[topic] += 1
+        
+        return dict(topic_counts)
 
     def _build_entity_networks(self, data: List[Dict]) -> Dict[str, Any]:
         """Build networks of related entities"""
@@ -493,13 +506,16 @@ class SovereignMLDetector:
             anomaly_score = min(len(patterns["anomalies"]) / 10.0, 1.0)  # Normalize anomaly count
             significance_scores.append(anomaly_score * 0.3)
         
-        # Trend significance
-        if patterns["trends"]["activity_trend"] != "insufficient_data":
+        # Trend significance - FIXED: Check if trend exists and is not insufficient_data
+        trends = patterns.get("trends", {})
+        activity_trend = trends.get("activity_trend", "insufficient_data")
+        if activity_trend != "insufficient_data":
             significance_scores.append(0.2)
         
         # Network significance
-        if patterns["entity_networks"]["relationships"]:
-            network_density = patterns["entity_networks"]["network_density"]
+        networks = patterns.get("entity_networks", {})
+        if networks.get("relationships"):
+            network_density = networks.get("network_density", 0)
             significance_scores.append(network_density * 0.1)
         
         return sum(significance_scores) if significance_scores else 0.0
@@ -538,12 +554,15 @@ class EnhancedSovereignCorrelator:
     def _integrate_insights(self, basic_corr: Dict, patterns: Dict) -> Dict[str, Any]:
         """Integrate basic correlation with ML patterns"""
         
+        # FIXED: Safe access to trend data
+        activity_trend = patterns.get("trends", {}).get("activity_trend", "unknown")
+        
         return {
             "overall_confidence": (basic_corr["confidence_score"] + patterns["pattern_significance"]) / 2,
             "key_insights": [
-                f"Detected {len(patterns['clusters'])} event clusters",
-                f"Found {len(patterns['anomalies'])} anomalies",
-                f"Activity trend: {patterns['trends']['activity_trend']}"
+                f"Detected {len(patterns.get('clusters', []))} event clusters",
+                f"Found {len(patterns.get('anomalies', []))} anomalies",
+                f"Activity trend: {activity_trend}"
             ],
             "recommended_actions": self._generate_recommendations(patterns)
         }
@@ -552,13 +571,14 @@ class EnhancedSovereignCorrelator:
         """Generate actionable recommendations based on patterns"""
         recommendations = []
         
-        if patterns["clusters"]:
+        if patterns.get("clusters"):
             recommendations.append("Investigate event clusters for coordinated activities")
         
-        if patterns["anomalies"]:
+        if patterns.get("anomalies"):
             recommendations.append("Review anomalies for potential significant events")
         
-        if patterns["trends"]["activity_trend"] == "increasing":
+        trends = patterns.get("trends", {})
+        if trends.get("activity_trend") == "increasing":
             recommendations.append("Monitor increasing activity levels closely")
         
         return recommendations

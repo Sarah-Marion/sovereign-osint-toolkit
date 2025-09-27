@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 from collections import defaultdict, Counter
 import re
 from typing import Dict, List, Any, Optional
-import numpy as np
+import math
 
 from .sovereign_ml_detector import SovereignMLDetector, EnhancedSovereignCorrelator
 
@@ -158,12 +158,12 @@ class SovereignCorrelator:
                 except:
                     pass
         
-        # Calculate temporal trends
+        # Calculate temporal trends (pure Python replacement for numpy.mean)
         temporal_trends = {}
         for month, scores in temporal_sentiment.items():
-            temporal_trends[month] = np.mean(scores) if scores else 0
+            temporal_trends[month] = sum(scores) / len(scores) if scores else 0
         
-        avg_sentiment = np.mean(sentiment_scores) if sentiment_scores else 0
+        avg_sentiment = sum(sentiment_scores) / len(sentiment_scores) if sentiment_scores else 0
         
         return {
             'average_sentiment': round(avg_sentiment, 3),
@@ -185,9 +185,19 @@ class SovereignCorrelator:
                 if topic in content:
                     topic_mentions[topic] += 1
         
-        # Detect unusually high/low mention frequencies
-        avg_mentions = np.mean(list(topic_mentions.values())) if topic_mentions else 0
-        std_mentions = np.std(list(topic_mentions.values())) if len(topic_mentions) > 1 else 0
+        # Detect unusually high/low mention frequencies (pure Python replacement for numpy)
+        mention_counts = list(topic_mentions.values())
+        if mention_counts:
+            avg_mentions = sum(mention_counts) / len(mention_counts)
+            # Calculate standard deviation manually
+            if len(mention_counts) > 1:
+                variance = sum((x - avg_mentions) ** 2 for x in mention_counts) / len(mention_counts)
+                std_mentions = math.sqrt(variance)
+            else:
+                std_mentions = 0
+        else:
+            avg_mentions = 0
+            std_mentions = 0
         
         for topic, count in topic_mentions.items():
             if std_mentions > 0:
@@ -216,7 +226,7 @@ class SovereignCorrelator:
         confidence = min(len(documents) / 20, 0.8)  # Cap confidence
         
         # Predict based on dominant topics
-        dominant_topic = topic_clusters['topic_distribution'][0] if topic_clusters['topic_distribution'] else 'general'
+        dominant_topic = list(topic_clusters['topic_distribution'].keys())[0] if topic_clusters['topic_distribution'] else 'general'
         
         if sentiment_analysis['sentiment_trend'] == 'positive':
             predictions.append({
