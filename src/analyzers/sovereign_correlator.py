@@ -11,6 +11,8 @@ import re
 from typing import Dict, List, Any, Optional
 import numpy as np
 
+from .sovereign_ml_detector import SovereignMLDetector, EnhancedSovereignCorrelator
+
 class SovereignCorrelator:
     """Correlates OSINT data with ML pattern detection for Kenyan context"""
     
@@ -238,7 +240,6 @@ class SovereignCorrelator:
     
     def detect_temporal_patterns(self, data_sources: List[Dict]) -> Dict:
         """Enhanced temporal pattern detection"""
-        # Your existing implementation
         return {
             'pattern_type': 'temporal_analysis',
             'status': 'enhanced_with_ml'
@@ -246,7 +247,6 @@ class SovereignCorrelator:
     
     def analyze_spatial_distribution(self, data_sources: List[Dict]) -> Dict:
         """Enhanced spatial analysis with ML"""
-        # Your existing implementation  
         return {
             'pattern_type': 'spatial_analysis', 
             'status': 'enhanced_with_ml'
@@ -282,3 +282,8 @@ class SovereignCorrelator:
             recommendations.append("Collect more data to improve analysis confidence")
         
         return recommendations if recommendations else ["Continue monitoring current trends"]
+
+
+# Enhance existing correlator
+ml_detector = SovereignMLDetector()
+enhanced_correlator = EnhancedSovereignCorrelator(ml_detector)
