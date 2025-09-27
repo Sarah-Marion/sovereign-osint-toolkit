@@ -27,11 +27,23 @@ class SovereignMLDetector:
         
         # Kenyan-specific patterns and entities
         self.kenyan_entities = {
+            # Administrative
             'counties': ['nairobi', 'mombasa', 'kisumu', 'nakuru', 'eldoret', 'kakamega', 'kisii', 'nyeri'],
+    
+            # Individual Politicians (Current & Historical)
             'political_figures': ['ruto', 'raila', 'mudavadi', 'uhuru', 'odinga', 'kibaki', 'moi', 'rigathi'],
+            
+            # Ethnic Groups
             'ethnic_communities': ['kalenjin', 'kikuyu', 'luo', 'luhya', 'kamba', 'kisii', 'meru', 'somali'],
-            'economic_terms': ['kes', 'shilling', 'mpesa', 'safaricom', 'agriculture', 'tourism', 'economy', 'development'],
-            'infrastructure': ['sgr', 'highway', 'port', 'airport', 'energy', 'water', 'road', 'construction']
+            
+            # Economic Terms
+            'economic_terms': ['kes', 'shilling', 'mpesa', 'safaricom', 'agriculture', 'tourism', 'economy'],
+            
+            # Infrastructure Projects
+            'infrastructure': ['sgr', 'highway', 'port', 'airport', 'energy', 'water', 'road'],
+            
+            # Government Institutions
+            'government_entities': ['parliament', 'senate', 'county', 'assembly', 'judiciary', 'executive']
         }
 
     def detect_patterns(self, data: List[Dict]) -> Dict[str, Any]:
