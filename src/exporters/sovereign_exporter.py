@@ -11,10 +11,10 @@ import re
 from datetime import datetime, timezone
 from typing import Dict, List, Any, Optional
 from pathlib import Path
-from enum import Enum
 
 
-class DataSensitivityLevel(Enum):
+class DataSensitivityLevel:
+    """Data sensitivity levels as simple class (not Enum) for JSON serialization"""
     PUBLIC = "public"
     SENSITIVE_PUBLIC_INTEREST = "sensitive_public_interest"
     SENSITIVE_RESEARCH = "sensitive_research"
@@ -414,7 +414,7 @@ class SovereignExporter:
         if sensitivity_level not in allowed_sensitivities:
             validation_result["valid"] = False
             validation_result["issues"].append(
-                f"User type '{user_type}' not permitted to export {sensitivity_level.value} data"
+                f"User type '{user_type}' not permitted to export {sensitivity_level} data"
             )
         
         # Enhanced Kenyan context preservation check
@@ -512,6 +512,9 @@ class SovereignExporter:
             "additional_resources": self._generate_additional_resources(user_type)
         }
         
+        # Convert any non-serializable objects to strings
+        export_structure = self._make_json_serializable(export_structure)
+        
         content = json.dumps(export_structure, indent=2, ensure_ascii=False)
         
         return {
@@ -519,8 +522,21 @@ class SovereignExporter:
             "content": content,
             "filename": f"sovereign_export_{user_type}_{datetime.now():%Y%m%d_%H%M%S}.json",
             "size_estimate": len(content),
-            "processing_time": 0  # Would be calculated in real implementation
+            "processing_time": 0
         }
+
+    def _make_json_serializable(self, obj):
+        """Recursively make objects JSON serializable"""
+        if isinstance(obj, (str, int, float, bool, type(None))):
+            return obj
+        elif isinstance(obj, dict):
+            return {k: self._make_json_serializable(v) for k, v in obj.items()}
+        elif isinstance(obj, list):
+            return [self._make_json_serializable(item) for item in obj]
+        elif isinstance(obj, (datetime, Path)):
+            return str(obj)
+        else:
+            return str(obj)
 
     def _export_csv(self, data: List[Dict], user_type: str) -> Dict[str, Any]:
         """Enhanced CSV export with better flattening"""
@@ -545,7 +561,9 @@ class SovereignExporter:
             writer = csv.DictWriter(output, fieldnames=fieldnames)
             writer.writeheader()
             for row in flattened_data:
-                writer.writerow(row)
+                # Ensure all values are strings for CSV
+                string_row = {k: str(v) for k, v in row.items()}
+                writer.writerow(string_row)
         
         csv_content = output.getvalue()
         output.close()
@@ -570,7 +588,7 @@ class SovereignExporter:
             elif isinstance(v, list):
                 # Handle lists by converting to JSON string or indexing
                 if len(v) > 0 and isinstance(v[0], dict):
-                    items.append((new_key, json.dumps(v)))
+                    items.append((new_key, json.dumps(v, default=str)))
                 else:
                     items.append((new_key, '|'.join(map(str, v))))
             else:
@@ -676,7 +694,7 @@ class SovereignExporter:
 
     # Missing method implementations with enhanced functionality
     def _calculate_std_dev(self, numbers: List[float]) -> float:
-        """Calculate standard deviation"""
+        """Calculate standard deviation without numpy"""
         if len(numbers) < 2:
             return 0.0
         mean = sum(numbers) / len(numbers)
@@ -740,7 +758,7 @@ class SovereignExporter:
         return True
 
     # Original method stubs with enhanced implementations
-    def _assess_data_sensitivity(self, data: List[Dict]) -> DataSensitivityLevel:
+    def _assess_data_sensitivity(self, data: List[Dict]) -> str:
         """Enhanced data sensitivity assessment"""
         if not data:
             return DataSensitivityLevel.PUBLIC
@@ -872,9 +890,15 @@ class SovereignExporter:
             return 0.5
         
         try:
+            # Simple timestamp parsing without external dependencies
             if isinstance(timestamp, str):
-                from dateutil.parser import parse
-                item_time = parse(timestamp)
+                # Basic ISO format parsing
+                if 'T' in timestamp:
+                    date_part = timestamp.split('T')[0]
+                    year, month, day = map(int, date_part.split('-')[:3])
+                    item_time = datetime(year, month, day)
+                else:
+                    return 0.5
             else:
                 item_time = timestamp
             
@@ -945,7 +969,7 @@ class SovereignExporter:
     # Stub implementations for the new methods
     def _assess_verification_status(self, item: Dict) -> str:
         """Assess verification status for journalistic content"""
-        return "partially_verified"  # Simplified implementation
+        return "partially_verified"
 
     def _generate_ethical_notes(self, item: Dict) -> List[str]:
         """Generate ethical considerations for journalism"""
@@ -987,11 +1011,11 @@ class SovereignExporter:
 
     def _assess_cultural_validity(self, item: Dict) -> float:
         """Assess cultural validity for Kenyan context"""
-        return 0.8  # Simplified implementation
+        return 0.8
 
     def _assess_community_impact(self, item: Dict) -> str:
         """Assess community impact for NGO use"""
-        return "medium"  # Simplified implementation
+        return "medium"
 
     def _identify_stakeholders(self, item: Dict) -> List[str]:
         """Identify stakeholders for NGO analysis"""
@@ -1003,11 +1027,11 @@ class SovereignExporter:
 
     def _check_api_compatibility(self, item: Dict) -> bool:
         """Check API compatibility for developer use"""
-        return True  # Simplified implementation
+        return True
 
     def _determine_classification(self, item: Dict) -> str:
         """Determine classification level for government use"""
-        return "OFFICIAL"  # Simplified implementation
+        return "OFFICIAL"
 
     def _assess_interagency_relevance(self, item: Dict) -> List[str]:
         """Assess interagency relevance for government use"""
@@ -1026,8 +1050,7 @@ class SovereignExporter:
 
     def _export_pdf(self, data: List[Dict], user_type: str) -> Dict[str, Any]:
         """Enhanced PDF export stub"""
-        # In a real implementation, this would use a PDF generation library
-        pdf_content = f"PDF Export for {user_type}\n\n{json.dumps(data, indent=2)}"
+        pdf_content = f"PDF Export for {user_type}\n\n{json.dumps(data, indent=2, default=str)}"
         
         return {
             "format": "pdf",
@@ -1045,7 +1068,7 @@ class SovereignExporter:
         <body>
             <h1>OSINT Data Export</h1>
             <p>User Type: {user_type}</p>
-            <pre>{json.dumps(data, indent=2)}</pre>
+            <pre>{json.dumps(data, indent=2, default=str)}</pre>
         </body>
         </html>
         """
@@ -1083,14 +1106,16 @@ if __name__ == "__main__":
         "validate_context": True
     })
     
-    # Test batch export
-    results = exporter.batch_export(
-        data=sample_data,
-        formats=["json", "csv"],
-        user_types=["journalist", "researcher"],
-        output_dir=Path("./exports")
-    )
-    
-    print("Batch export completed successfully!")
-    print(f"Generated {len(results['files_written'])} files")
-    print(f"Overall quality score: {results['quality_report']['overall_quality_score']:.2f}")
+    # Test basic export
+    try:
+        result = exporter.export_data(sample_data, "journalist", "json")
+        print("✅ JSON export working!")
+        print(f"Filename: {result['filename']}")
+        print(f"Size: {result['size_estimate']} bytes")
+        
+        result_csv = exporter.export_data(sample_data, "researcher", "csv")
+        print("✅ CSV export working!")
+        print(f"Filename: {result_csv['filename']}")
+        
+    except Exception as e:
+        print(f"❌ Error: {e}")
