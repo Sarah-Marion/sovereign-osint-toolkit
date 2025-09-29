@@ -250,10 +250,16 @@ class AdvancedSovereignCorrelator:
         # Simple community detection based on strongly connected components
         visited = set()
         
-        for node in list(set([n for edge in self.entity_graph for n in [edge[0], edge[1]])):
+        # FIXED: Proper list comprehension syntax
+        all_nodes = set()
+        for edge in self.entity_graph:
+            all_nodes.add(edge[0])
+            all_nodes.add(edge[1])
+        
+        for node in all_nodes:
             if node not in visited:
                 community = self._bfs_community(node, visited)
-                if len(community) >= 2:  # Only include 'meaningful' communities
+                if len(community) >= 2:  # Only include meaningful communities
                     communities.append({
                         'nodes': list(community),
                         'size': len(community),
