@@ -13,7 +13,7 @@ from typing import Dict, List, Any, Optional, Tuple, Set
 from dataclasses import dataclass
 
 from .sovereign_ml_detector import SovereignMLDetector, EnhancedSovereignCorrelator
-
+from monitoring.sovereign_monitor import SovereignMonitor, MonitoringAlert, AlertLevel, PatternType
 
 @dataclass
 class CorrelationEdge:
@@ -661,3 +661,55 @@ if __name__ == "__main__":
     print(f"Overall Confidence: {result['confidence_synthesis']['overall_confidence']:.2f}")
     print(f"Graph Analysis: {result['graph_analysis']['entity_count']} entities")
     print(f"Multi-modal Correlations: {result['multi_modal_correlation']['correlation_network_size']}")
+
+
+class SovereignCorrelatorWithMonitoring(SovereignCorrelator):
+    """Enhanced correlator with real-time monitoring capabilities"""
+    
+    def __init__(self):
+        super().__init__()
+        self.monitor = SovereignMonitor(self)
+        self.monitoring_enabled = False
+    
+    def enable_realtime_monitoring(self, config: Optional[Dict] = None):
+        """Enable real-time monitoring"""
+        if config:
+            self.monitor = SovereignMonitor(self, config)
+        
+        self.monitor.start_monitoring()
+        self.monitoring_enabled = True
+        print("✅ Real-time monitoring enabled")
+    
+    def disable_realtime_monitoring(self):
+        """Disable real-time monitoring"""
+        self.monitor.stop_monitoring()
+        self.monitoring_enabled = False
+        print("🛑 Real-time monitoring disabled")
+    
+    def get_monitoring_status(self) -> Dict[str, Any]:
+        """Get monitoring status"""
+        return self.monitor.get_monitoring_status()
+    
+    def get_recent_alerts(self, limit: int = 10) -> List[MonitoringAlert]:
+        """Get recent monitoring alerts"""
+        return self.monitor.get_recent_alerts(limit)
+    
+    def add_alert_handler(self, handler):
+        """Add custom alert handler"""
+        self.monitor.add_alert_handler(handler)
+    
+    def correlate_data(self, data_sources: List[Dict], advanced: bool = True) -> Dict[str, Any]:
+        """Enhanced correlation with monitoring integration"""
+        result = super().correlate_data(data_sources, advanced)
+        
+        # If monitoring is enabled, update monitor with correlation results
+        if self.monitoring_enabled:
+            self._update_monitor_with_correlation(result)
+        
+        return result
+    
+    def _update_monitor_with_correlation(self, correlation_result: Dict):
+        """Update monitor with latest correlation results"""
+        # This would integrate real correlation data into the monitoring system
+        # For now, it's a placeholder for the integration
+        pass
