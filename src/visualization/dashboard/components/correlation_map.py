@@ -1,175 +1,112 @@
 """
-Metrics Overview Cards Component
-Key metrics and statistics visualization cards
+Kenyan Geospatial Correlation Map Visualization
+Interactive map showing correlation hotspots across Kenya
 """
 
-import streamlit as st
 import plotly.graph_objects as go
-from plotly.subplots import make_subplots
+import plotly.express as px
 import pandas as pd
+import streamlit as st
 from typing import Dict, List, Any
 
 
-class MetricsOverviewCards:
-    """Creates overview metrics cards and mini-charts"""
+class KenyanCorrelationMap:
+    """Creates interactive maps of Kenya showing correlation hotspots"""
     
     def __init__(self):
-        self.colors = {
-            'primary': '#1f77b4',
-            'secondary': '#ff7f0e', 
-            'success': '#2ca02c',
-            'warning': '#ffbb78',
-            'danger': '#d62728'
+        # Kenyan county coordinates (simplified)
+        self.kenyan_counties = {
+            'Nairobi': {'lat': -1.286389, 'lon': 36.817223, 'activity': 85},
+            'Mombasa': {'lat': -4.0435, 'lon': 39.6682, 'activity': 65},
+            'Kisumu': {'lat': -0.1022, 'lon': 34.7617, 'activity': 45},
+            'Nakuru': {'lat': -0.3031, 'lon': 36.0800, 'activity': 35},
+            'Eldoret': {'lat': 0.5143, 'lon': 35.2698, 'activity': 30},
+            'Kakamega': {'lat': 0.2827, 'lon': 34.7519, 'activity': 25},
+            'Kisii': {'lat': -0.6773, 'lon': 34.7796, 'activity': 20},
+            'Meru': {'lat': 0.0557, 'lon': 37.6492, 'activity': 28},
+            'Thika': {'lat': -1.0333, 'lon': 37.0833, 'activity': 32},
+            'Machakos': {'lat': -1.5167, 'lon': 37.2667, 'activity': 22}
         }
     
-    def render_correlation_metrics(self, correlation_data: Dict[str, Any]):
-        """Render correlation performance metrics"""
+    def create_kenyan_correlation_map(self, data_sources: List[Dict]) -> go.Figure:
+        """Create an interactive map of Kenya with correlation hotspots"""
         
-        col1, col2, col3, col4 = st.columns(4)
+        # Prepare data for mapping
+        map_data = []
+        for county, info in self.kenyan_counties.items():
+            map_data.append({
+                'County': county,
+                'Latitude': info['lat'],
+                'Longitude': info['lon'],
+                'Activity_Level': info['activity'],
+                'Color_Intensity': info['activity'] / 100.0,
+                'Size': info['activity'] / 5.0
+            })
         
-        with col1:
-            confidence = correlation_data.get('confidence_synthesis', {}).get('overall_confidence', 0)
-            st.metric(
-                "Confidence Score", 
-                f"{confidence:.2%}",
-                delta=f"{confidence*100:.0f}%",
-                delta_color="normal"
-            )
+        df = pd.DataFrame(map_data)
         
-        with col2:
-            entities = correlation_data.get('graph_analysis', {}).get('entity_count', 0)
-            st.metric(
-                "Entities Tracked",
-                entities,
-                delta="8 new" if entities > 0 else None
-            )
-        
-        with col3:
-            correlations = correlation_data.get('multi_modal_correlation', {}).get('correlation_network_size', 0)
-            st.metric(
-                "Active Correlations",
-                correlations,
-                delta="12% ↑" if correlations > 0 else None
-            )
-        
-        with col4:
-            clusters = correlation_data.get('cross_source_verification', {}).get('total_verified_clusters', 0)
-            st.metric(
-                "Verified Clusters", 
-                clusters,
-                delta="3 new" if clusters > 0 else None
-            )
-    
-    def render_performance_gauges(self, correlation_data: Dict[str, Any]):
-        """Render performance gauge charts"""
-        
-        st.subheader("System Performance Metrics")
-        
-        col1, col2, col3 = st.columns(3)
-        
-        with col1:
-            self._render_gauge_chart(
-                "Pattern Accuracy", 
-                correlation_data.get('ml_patterns', {}).get('pattern_significance', 0) * 100,
-                "Pattern Detection"
-            )
-        
-        with col2:
-            self._render_gauge_chart(
-                "Correlation Strength",
-                correlation_data.get('multi_modal_correlation', {}).get('average_correlation', 0) * 100,
-                "Multi-modal Analysis"
-            )
-        
-        with col3:
-            self._render_gauge_chart(
-                "Verification Confidence",
-                correlation_data.get('cross_source_verification', {}).get('average_verification_confidence', 0) * 100,
-                "Cross-source Verification"
-            )
-    
-    def _render_gauge_chart(self, title: str, value: float, domain: str):
-        """Render a single gauge chart"""
-        
-        fig = go.Figure(go.Indicator(
-            mode = "gauge+number+delta",
-            value = value,
-            domain = {'x': [0, 1], 'y': [0, 1]},
-            title = {'text': title},
-            delta = {'reference': 50},
-            gauge = {
-                'axis': {'range': [None, 100]},
-                'bar': {'color': self.colors['primary']},
-                'steps': [
-                    {'range': [0, 50], 'color': "lightgray"},
-                    {'range': [50, 80], 'color': "yellow"},
-                    {'range': [80, 100], 'color': "lightgreen"}
-                ],
-                'threshold': {
-                    'line': {'color': "red", 'width': 4},
-                    'thickness': 0.75,
-                    'value': 90
-                }
-            }
-        ))
-        
-        fig.update_layout(height=250, margin=dict(l=10, r=10, t=50, b=10))
-        st.plotly_chart(fig, use_container_width=True)
-    
-    def render_entity_type_breakdown(self, correlation_data: Dict[str, Any]):
-        """Render entity type distribution pie chart"""
-        
-        # Sample entity type distribution
-        entity_types = {
-            'Political Figures': 15,
-            'Locations': 25, 
-            'Organizations': 20,
-            'Topics': 30,
-            'Events': 10
-        }
-        
-        fig = go.Figure(data=[go.Pie(
-            labels=list(entity_types.keys()),
-            values=list(entity_types.values()),
-            hole=.3,
-            marker_colors=[self.colors['primary'], self.colors['secondary'], 
-                          self.colors['success'], self.colors['warning'], 
-                          self.colors['danger']]
-        )])
-        
-        fig.update_layout(
-            title="Entity Type Distribution",
-            height=300,
-            showlegend=True,
-            margin=dict(l=10, r=10, t=50, b=10)
-        )
-        
-        st.plotly_chart(fig, use_container_width=True)
-    
-    def render_temporal_trend(self, time_data: List[Dict]):
-        """Render temporal trend mini-chart"""
-        
-        # Sample time series data
-        dates = pd.date_range(start='2024-01-01', periods=15, freq='D')
-        correlation_strength = [0.6, 0.65, 0.7, 0.68, 0.75, 0.8, 0.78, 0.82, 0.85, 0.83, 0.88, 0.9, 0.87, 0.92, 0.95]
-        
+        # Create the map
         fig = go.Figure()
-        fig.add_trace(go.Scatter(
-            x=dates,
-            y=correlation_strength,
-            mode='lines',
-            line=dict(color=self.colors['primary'], width=3),
-            fill='tozeroy',
-            fillcolor='rgba(31, 119, 180, 0.2)'
+        
+        # Add county markers with size and color based on activity
+        fig.add_trace(go.Scattermapbox(
+            lat=df['Latitude'],
+            lon=df['Longitude'],
+            mode='markers+text',
+            marker=dict(
+                size=df['Size'],
+                color=df['Activity_Level'],
+                colorscale='Viridis',
+                showscale=True,
+                colorbar=dict(
+                    title="Activity Level"  # FIXED: Removed deprecated 'titleside'
+                ),
+                opacity=0.8
+            ),
+            text=df['County'],
+            textposition="top center",
+            hovertemplate=(
+                "<b>%{text}</b><br>" +
+                "Activity Level: %{marker.color}<br>" +
+                "<extra></extra>"
+            )
         ))
         
+        # Add some sample correlation lines
+        correlation_lines = [
+            {'from': 'Nairobi', 'to': 'Mombasa', 'strength': 0.8},
+            {'from': 'Nairobi', 'to': 'Kisumu', 'strength': 0.6},
+            {'from': 'Nairobi', 'to': 'Nakuru', 'strength': 0.7},
+            {'from': 'Mombasa', 'to': 'Kisumu', 'strength': 0.4}
+        ]
+        
+        for line in correlation_lines:
+            from_county = self.kenyan_counties[line['from']]
+            to_county = self.kenyan_counties[line['to']]
+            
+            fig.add_trace(go.Scattermapbox(
+                lat=[from_county['lat'], to_county['lat']],
+                lon=[from_county['lon'], to_county['lon']],
+                mode='lines',
+                line=dict(
+                    width=line['strength'] * 6,
+                    color='rgba(255, 107, 107, 0.6)'
+                ),
+                hoverinfo='text',
+                text=f"Correlation: {line['strength']:.2f}",
+                showlegend=False
+            ))
+        
+        # Update map layout
         fig.update_layout(
-            title="Correlation Strength Trend",
-            xaxis_title="Date",
-            yaxis_title="Strength",
-            height=200,
-            margin=dict(l=10, r=10, t=50, b=10),
-            showlegend=False
+            title='Kenyan OSINT Activity & Correlation Map',
+            mapbox=dict(
+                style='open-street-map',
+                center=dict(lat=-0.0236, lon=37.9062),  # Center of Kenya
+                zoom=5.5
+            ),
+            height=600,
+            margin=dict(l=0, r=0, t=40, b=0)
         )
         
-        st.plotly_chart(fig, use_container_width=True)
+        return fig

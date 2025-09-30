@@ -116,14 +116,16 @@ class EntityNetworkGraph:
         # Add nodes
         fig.add_trace(node_trace)
         
-        # Update layout
+        # FIXED: Updated layout with modern Plotly syntax
         fig.update_layout(
-            title='Entity Relationship Network',
-            titlefont_size=16,
+            title=dict(
+                text='Entity Relationship Network',
+                font=dict(size=16)  # FIXED: Use font dict instead of titlefont_size
+            ),
             showlegend=False,
             hovermode='closest',
             margin=dict(b=20, l=5, r=5, t=40),
-            annotations=[ dict(
+            annotations=[dict(
                 text="Node size indicates entity importance<br>Line thickness indicates relationship strength",
                 showarrow=False,
                 xref="paper", yref="paper",
