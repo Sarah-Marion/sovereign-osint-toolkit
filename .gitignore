@@ -38,3 +38,4 @@ __pycache__/
 __pvcache__/
 *.pyc
 .DS_Store
+exports/
