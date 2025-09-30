@@ -1,0 +1,76 @@
+{
+  "metadata": {
+    "export_timestamp": "2025-09-23T03:56:42.839214",
+    "user_type": "journalist",
+    "kenyan_context_version": "1.0",
+    "data_protection_compliance": "DPA_2019"
+  },
+  "export_template": {
+    "format": "investigative_report",
+    "sections": [
+      "executive_summary",
+      "key_findings",
+      "sources",
+      "ethical_considerations"
+    ],
+    "kenyan_context": [
+      "political_implications",
+      "public_interest_justification"
+    ]
+  },
+  "data": [
+    {
+      "title": "Mombasa tourism 2024 - General Analysis",
+      "content": "Cultural analysis of Mombasa tourism 2024 in general Kenyan context",
+      "source": "news",
+      "kenyan_relevance": 0.6000000000000001,
+      "timestamp": "2025-09-23T03:56:42.838947",
+      "region": "general",
+      "cultural_context": {
+        "political_significance": "General Kenyan context",
+        "sensitivities": [
+          "tribal politics",
+          "land disputes",
+          "historical injustices",
+          "election violence",
+          "marginalized communities",
+          "resource allocation",
+          "devolution conflicts",
+          "historical land injustices"
+        ],
+        "communication_norms": [
+          "Respectful",
+          "Context-aware",
+          "Community-oriented"
+        ]
+      },
+      "sensitivity_validation": {
+        "approved": true,
+        "warnings": [],
+        "recommendations": []
+      },
+      "topics": [
+        "development",
+        "culture"
+      ],
+      "verification_score": 0.7,
+      "osint_source": "news",
+      "collection_timestamp": "2025-09-23T03:56:42.838994",
+      "verification_indicators": {
+        "cross_referenced": false,
+        "source_reliability": 0.7,
+        "temporal_relevance": 1.0
+      },
+      "public_interest_score": 0.8,
+      "verification_status": "unverified",
+      "ethical_considerations": "Standard ethical considerations apply",
+      "kenyan_impact": [
+        "General Kenyan public"
+      ],
+      "stakeholder_analysis": [
+        "General public"
+      ]
+    }
+  ],
+  "kenyan_context_summary": "Analysis of 1 items: Regional focus: mombasa. Key topics: development, politics."
+}

@@ -1,0 +1,40 @@
+# OSINT-specific ignores
+*.env
+*.key
+*.secret
+data/raw/
+outputs/personal/
+cache/
+
+# Python standard ignores
+__pycache__/
+*.py[cod]
+.env
+.venv
+env/
+virtual/
+
+# Virtual environments
+sovereign_env/
+venv/
+env/
+*.venv
+
+# Auto-generated activation scripts
+activate_sovereign.sh
+activate_sovereign.bat
+
+# Personal configs
+config/local_*.py
+*.env
+secrets/
+
+# OSINT data exports
+exports/personal_*
+exports/raw_data/
+
+# Cache and temporary files
+__pycache__/
+__pvcache__/
+*.pyc
+.DS_Store

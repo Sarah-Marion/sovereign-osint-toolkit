@@ -1,0 +1,23 @@
+export_settings:
+  default_format: "json"
+  allowed_formats: ["json", "csv", "html", "pdf"]
+  max_file_size_mb: 10
+  
+kenyan_context:
+  required_regions: ["nairobi", "mombasa", "kisumu"]
+  sensitivity_levels: ["public", "sensitive", "restricted"]
+  compliance_frameworks: ["DPA_2019", "GDPR", "local_ethics"]
+  
+user_profiles:
+  journalist:
+    max_sensitivity: "sensitive"
+    required_fields: ["verification_status", "sources"]
+  researcher:
+    max_sensitivity: "sensitive" 
+    required_fields: ["methodology", "citations"]
+  ngo:
+    max_sensitivity: "public"
+    required_fields: ["community_impact", "stakeholders"]
+  developer:
+    max_sensitivity: "technical"
+    required_fields: ["data_schema", "api_spec"]

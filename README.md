@@ -32,3 +32,16 @@ We measure success not in data points collected, but in:
 ---
 
 *"The most dangerous algorithm is the one that doesn't know it's colonial."*
+
+
+## 🚀 Quick Start
+
+### Virtual Environment Setup (Required)
+```bash
+# Automated setup
+python setup_environment.py
+
+# Or manual setup
+python -m venv sovereign_env
+source sovereign_env/bin/activate  # Windows: sovereign_env\Scripts\activate
+pip install -r requirements.txt

@@ -12,8 +12,13 @@ import re
 from typing import Dict, List, Any, Optional, Tuple, Set
 from dataclasses import dataclass
 
-from .sovereign_ml_detector import SovereignMLDetector, EnhancedSovereignCorrelator
-from monitoring.sovereign_monitor import SovereignMonitor, MonitoringAlert, AlertLevel, PatternType
+try:
+    from .sovereign_ml_detector import SovereignMLDetector, EnhancedSovereignCorrelator
+    from ..monitoring.sovereign_monitor import SovereignMonitor, MonitoringAlert, AlertLevel, PatternType
+except ImportError:
+    # Fallback for different execution contexts
+    from sovereign_ml_detector import SovereignMLDetector, EnhancedSovereignCorrelator
+    from monitoring.sovereign_monitor import SovereignMonitor, MonitoringAlert, AlertLevel, PatternType
 
 @dataclass
 class CorrelationEdge:

@@ -1,0 +1,77 @@
+{
+  "metadata": {
+    "export_timestamp": "2025-09-23T03:56:42.840702",
+    "user_type": "researcher",
+    "kenyan_context_version": "1.0",
+    "data_protection_compliance": "DPA_2019"
+  },
+  "export_template": {
+    "format": "academic_paper",
+    "sections": [
+      "abstract",
+      "methodology",
+      "findings",
+      "discussion",
+      "references"
+    ],
+    "kenyan_context": [
+      "literature_review",
+      "local_methodology_adaptation"
+    ]
+  },
+  "data": [
+    {
+      "title": "Mombasa tourism 2024 - General Analysis",
+      "content": "Cultural analysis of Mombasa tourism 2024 in general Kenyan context",
+      "source": "news",
+      "kenyan_relevance": 0.6000000000000001,
+      "timestamp": "2025-09-23T03:56:42.840504",
+      "region": "general",
+      "cultural_context": {
+        "political_significance": "General Kenyan context",
+        "sensitivities": [
+          "tribal politics",
+          "land disputes",
+          "historical injustices",
+          "election violence",
+          "marginalized communities",
+          "resource allocation",
+          "devolution conflicts",
+          "historical land injustices"
+        ],
+        "communication_norms": [
+          "Respectful",
+          "Context-aware",
+          "Community-oriented"
+        ]
+      },
+      "sensitivity_validation": {
+        "approved": true,
+        "warnings": [],
+        "recommendations": []
+      },
+      "topics": [
+        "development",
+        "culture"
+      ],
+      "verification_score": 0.7,
+      "osint_source": "news",
+      "collection_timestamp": "2025-09-23T03:56:42.840556",
+      "verification_indicators": {
+        "cross_referenced": false,
+        "source_reliability": 0.7,
+        "temporal_relevance": 1.0
+      },
+      "methodological_notes": "Standard methodology applied",
+      "limitations": [
+        "Sample size limitations"
+      ],
+      "replication_instructions": "Follow standard research protocols",
+      "local_methodology_adaptation": [
+        "Consider local context"
+      ],
+      "cultural_validity": "Moderate"
+    }
+  ],
+  "kenyan_context_summary": "Analysis of 1 items: Regional focus: mombasa. Key topics: development, politics."
+}
