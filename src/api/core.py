@@ -8,6 +8,14 @@ import time
 from typing import Optional, List, Dict, Any
 import logging
 
+# Import auth dependencies
+from sovereign_osint.auth.core import (
+    get_current_active_user, require_permission, require_role,
+    authenticate_user, create_tokens, SECRET_KEY, ALGORITHM,
+    ACCESS_TOKEN_EXPIRE_MINUTES, REFRESH_SECRET_KEY
+)
+from sovereign_osint.auth.models import User, LoginRequest, Token
+
 # Initialize rate limiter
 limiter = Limiter(key_func=get_remote_address)
 
@@ -167,3 +175,87 @@ async def track_requests(request, call_next):
         app.state.requests_processed = 0
     app.state.requests_processed += 1
     return response
+
+
+# Add authentication endpoints
+@app.post("/api/v1/auth/login", response_model=Token)
+async def login(login_data: LoginRequest):
+    """Authenticate user and return JWT tokens"""
+    user = authenticate_user(login_data.username, login_data.password)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    
+    access_token, refresh_token = create_tokens(
+        data={"sub": user.username, "roles": user.roles},
+        expires_delta=timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    )
+    
+    return Token(
+        access_token=access_token,
+        token_type="bearer",
+        refresh_token=refresh_token,
+        expires_in=ACCESS_TOKEN_EXPIRE_MINUTES * 60
+    )
+
+@app.post("/api/v1/auth/refresh")
+async def refresh_token(refresh_token: str):
+    """Refresh access token using refresh token"""
+    try:
+        payload = jwt.decode(refresh_token, REFRESH_SECRET_KEY, algorithms=[ALGORITHM])
+        username: str = payload.get("sub")
+        token_type: str = payload.get("type")
+        
+        if username is None or token_type != "refresh":
+            raise HTTPException(status_code=401, detail="Invalid refresh token")
+            
+        user = get_user(username)
+        if user is None:
+            raise HTTPException(status_code=401, detail="User not found")
+            
+        access_token, new_refresh_token = create_tokens(
+            data={"sub": user.username, "roles": user.roles}
+        )
+        
+        return Token(
+            access_token=access_token,
+            token_type="bearer", 
+            refresh_token=new_refresh_token,
+            expires_in=ACCESS_TOKEN_EXPIRE_MINUTES * 60
+        )
+        
+    except JWTError:
+        raise HTTPException(status_code=401, detail="Invalid refresh token")
+
+@app.get("/api/v1/auth/me", response_model=User)
+async def get_current_user_info(current_user: User = Depends(get_current_active_user)):
+    """Get current user information"""
+    return current_user
+
+# Update existing endpoints with authentication
+@app.post("/api/v1/correlate", response_model=CorrelationResponse)
+@limiter.limit("10/minute")
+async def correlate_data(
+    request: CorrelationRequest,
+    current_user: User = Depends(require_permission("correlate_data"))
+):
+    """Protected correlation endpoint - requires correlate_data permission"""
+    # ... (existing correlation logic remains the same)
+
+@app.get("/api/v1/monitoring/alerts")
+@limiter.limit("15/minute") 
+async def get_monitoring_alerts(
+    severity: Optional[str] = None,
+    limit: int = 50,
+    current_user: User = Depends(require_permission("view_alerts"))
+):
+
+
+# Admin-only endpoint
+@app.get("/api/v1/admin/users")
+async def get_all_users(current_user: User = Depends(require_role("admin"))):
+    """Get all users - admin role required"""
+    return {"users": list(users_db.values())}
