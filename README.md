@@ -55,7 +55,7 @@ python setup_environment.py
 ```
 
 #### Manual Installation
-
+```
 # Clone repository
 git clone https://github.com/your-username/sovereign-osint-toolkit.git
 cd sovereign-osint-toolkit
@@ -74,7 +74,7 @@ pip install -r requirements.txt
 
 ### Set up environment variables
 cp .env.example .env
-
+```
 
 ## 🛠️ Usage Examples
 
@@ -136,8 +136,6 @@ chmod +x deploy.sh
 
 The toolkit supports automatic SSL with Let's Encrypt. See [DEPLOYMENT.md](/DEPLOYMENT.md) for detailed production setup.
 
-
-## SSL/TLS Configuration for Production
 ### Caching Strategy
 Redis is configured for optimal performance. Cache OSINT query results:
 
@@ -180,7 +178,7 @@ add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" alway
 
 
 
-📁 Project Structure
+## 📁 Project Structure
 
 ```text 
 sovereign-osint-toolkit/
