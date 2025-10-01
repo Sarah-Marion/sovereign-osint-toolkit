@@ -19,6 +19,9 @@ from typing import Optional, List, Dict, Any
 import logging
 import uvicorn
 
+from strawberry.fastapi import GraphQLRouter
+from .graphql_schema import schema
+
 # Security configuration
 SECRET_KEY = secrets.token_urlsafe(32)
 REFRESH_SECRET_KEY = secrets.token_urlsafe(32)
@@ -53,6 +56,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+graphql_app = GraphQLRouter(schema)
+app.include_router(graphql_app, prefix="/graphql", tags=["graphql"])
+
 
 # Data Models
 class UserBase(BaseModel):
@@ -277,19 +284,38 @@ async def root():
         }
     }
 
+# @app.get("/api/v1/health", response_model=HealthResponse)
+# @limiter.limit("30/minute")
+# async def health_check():
+#     """Health check endpoint"""
+#     return HealthResponse(
+#         status="healthy",
+#         timestamp=datetime.now().isoformat(),
+#         version="2.0.0",
+#         components={
+#             "api": "healthy",
+#             "authentication": "active",
+#             "rate_limiter": "active",
+#             "correlation_engine": "ready"
+#         },
+#         uptime=round(time.time() - app_start_time, 2),
+#         requests_processed=getattr(app.state, 'requests_processed', 0)
+#     )
+
+# Enhanced health check to include GraphQL status
 @app.get("/api/v1/health", response_model=HealthResponse)
 @limiter.limit("30/minute")
 async def health_check():
-    """Health check endpoint"""
     return HealthResponse(
         status="healthy",
         timestamp=datetime.now().isoformat(),
         version="2.0.0",
         components={
-            "api": "healthy",
+            "rest_api": "healthy",
+            "graphql": "healthy",  # Added GraphQL status
             "authentication": "active",
             "rate_limiter": "active",
-            "correlation_engine": "ready"
+            "database": "connected"
         },
         uptime=round(time.time() - app_start_time, 2),
         requests_processed=getattr(app.state, 'requests_processed', 0)
