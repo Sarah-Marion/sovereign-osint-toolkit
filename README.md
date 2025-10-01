@@ -73,7 +73,7 @@ sovereign_env\Scripts\activate
 pip install -r requirements.txt
 
 ### Set up environment variables
-cp .env.example .env
+cp .env.template .env
 ```
 
 ## 🛠️ Usage Examples
