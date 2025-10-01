@@ -15,6 +15,12 @@ docker-compose build
 echo "🔧 Starting services..."
 docker-compose up -d
 
+echo "⏳ Waiting for services to start..."
+sleep 10
+
+echo "🗃️ Optimizing database..."
+# This will run when the application starts and uses the database
+
 echo "✅ Deployment complete!"
 echo "📚 API Documentation: http://localhost:8000/api/docs"
 echo "🔗 GraphQL Endpoint: http://localhost:8000/graphql"
