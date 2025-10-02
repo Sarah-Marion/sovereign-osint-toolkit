@@ -225,6 +225,7 @@ Email: dev@sarahmarion.com
 
 ## 📚 Additional Documentation
 
+- [Usage Guide](/USAGE.md) - Complete usage instructions and examples
 - [Deployment Guide](/DEPLOYMENT.md) - Production deployment instructions
 - [Performance Optimization](/PERFORMANCE.md) - Caching and optimization strategies
 - [Security Hardening](/SECURITY.md) - Security best practices and configuration
