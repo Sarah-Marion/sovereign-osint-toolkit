@@ -1,8 +1,15 @@
 """
-Sovereign OSINT Toolkit By Sarah Marion
-- Export System
-Specialized export formats for different user types with Kenyan context preservation
+Sovereign OSINT Toolkit - Export System
+By Sarah Marion
 GitHub: https://github.com/Sarah-Marion/sovereign-osint-toolkit
+Portfolio: https://www.sarahmarion.com/
+
+SPECIALIZED FEATURES:
+• Kenyan cultural context validation and preservation
+• Data sensitivity classification (Public to Restricted)
+• User-type specific export templates (Journalist, Researcher, NGO, Developer, Government)
+• Data Protection Act 2019 compliance
+• Batch export with quality scoring
 """
 
 import json
@@ -139,9 +146,16 @@ class KenyanAnonymization:
 
 
 class SovereignExporter:
-    """Unified export system with enhanced Kenyan context preservation"""
+    """Unified export system by Sarah Marion with enhanced Kenyan context preservation"""
     
     def __init__(self, config: Optional[Dict] = None):
+        self.author = "Sarah Marion"
+        self.author_title = "Security-Focused Full-Stack Developer"
+        self.portfolio = "https://www.sarahmarion.com/"
+        self.linkedin = "https://www.linkedin.com/in/sarah-ndeti/"
+        self.github = "https://github.com/Sarah-Marion"
+        self.blog = "https://www.blog.sarahmarion.com/"
+        self.version = "1.0"
         self.kenyan_context = KenyanContextValidator()
         self.anonymizer = KenyanAnonymization()
         
@@ -493,12 +507,22 @@ class SovereignExporter:
 
     # Enhanced export format handlers
     def _export_json(self, data: List[Dict], user_type: str) -> Dict[str, Any]:
-        """Enhanced JSON export with comprehensive metadata"""
+        """Enhanced JSON export with comprehensive metadata and author branding"""
         export_structure = {
             "metadata": {
+                "toolkit": "Sovereign OSINT Toolkit",
+                "version": "1.0",  
+                "author": {
+                    "name": "Sarah Marion",
+                    "title": "Security-Focused Full-Stack Developer",
+                    "portfolio": "https://www.sarahmarion.com/",
+                    "linkedin": "https://www.linkedin.com/in/sarah-ndeti/",
+                    "github": "https://github.com/Sarah-Marion",
+                    "blog": "https://www.blog.sarahmarion.com/"
+                },
                 "export_timestamp": datetime.now(timezone.utc).isoformat(),
                 "user_type": user_type,
-                "kenyan_context_version": "2.0",
+                "kenyan_context_version": "1.0",
                 "data_protection_compliance": "DPA_2019",
                 "export_config": self.config,
                 "quality_indicators": {
