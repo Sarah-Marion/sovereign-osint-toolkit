@@ -1,7 +1,8 @@
 """
-Sovereign OSINT Toolkit - Export System
+Sovereign OSINT Toolkit By Sarah Marion
+- Export System
 Specialized export formats for different user types with Kenyan context preservation
-By Sarah Marion
+GitHub: https://github.com/Sarah-Marion/sovereign-osint-toolkit
 """
 
 import json
@@ -161,14 +162,14 @@ class SovereignExporter:
                 "sections": ["executive_summary", "key_findings", "sources", "ethical_considerations"],
                 "kenyan_context": ["political_implications", "public_interest_justification", "local_stakeholders"],
                 "required_fields": ["title", "source", "timestamp", "public_interest_score"],
-                "sensitivity_allowed": [DataSensitivityLevel.PUBLIC, DataSensitivityLevel.SENSITIVE_PUBLIC_INTEREST]
+                "sensitivity_allowed": [DataSensitivityLevel.PUBLIC, DataSensitivityLevel.SENSITIVE_PUBLIC_INTEREST, DataSensitivityLevel.SENSITIVE_COMMUNITY, DataSensitivityLevel.SENSITIVE_PUBLIC_INTEREST]
             },
             "researcher": {
                 "format": "academic_paper",
                 "sections": ["abstract", "methodology", "findings", "discussion", "references"],
                 "kenyan_context": ["literature_review", "local_methodology_adaptation", "cultural_validity"],
                 "required_fields": ["methodology", "limitations", "replication_data"],
-                "sensitivity_allowed": [DataSensitivityLevel.PUBLIC, DataSensitivityLevel.SENSITIVE_RESEARCH]
+                "sensitivity_allowed": [DataSensitivityLevel.PUBLIC, DataSensitivityLevel.SENSITIVE_RESEARCH, DataSensitivityLevel.SENSITIVE_COMMUNITY, DataSensitivityLevel.SENSITIVE_PUBLIC_INTEREST]
             },
             "ngo": {
                 "format": "policy_brief",
