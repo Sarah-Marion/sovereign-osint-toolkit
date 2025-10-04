@@ -143,6 +143,38 @@ The demo will:
 
 ```
 
+### Complete Workflow Sequence
+
+**Step 1: Main Interface & Banner**
+![Step 1: Main Interface](docs/images/screenshots/main-interface1.png)
+*Launching Sovereign OSINT Toolkit with comprehensive Kenyan architecture*
+
+**Step 2: Enhanced Analysis in Action**  
+![Step 2: Enhanced Analysis](docs/images/screenshots/main-interface2.png)
+*Running correlation analysis with Kenyan relevance scoring (0.70 for infrastructure topics)*
+
+**Step 3: Cultural Context Analysis**
+![Step 3: Cultural Context](docs/images/screenshots/main-interface3.png)
+*Detailed analysis results showing topic identification and source reliability metrics*
+
+**Step 4: Comprehensive Regional Workflow**
+![Step 4: Comprehensive Workflow](docs/images/screenshots/main-interface4.png)
+*Advanced analysis with regional context (Nairobi, Mombasa, Kisumu) and cultural insights*
+
+**Step 5: Batch Export & Final Results**
+![Step 5: Batch Export](docs/images/screenshots/main-interface5.png)
+*Successful batch export completion with quality scoring and file generation*
+
+### Terminal Output Summary
+```text
+🎉 All workflows completed successfully!
+📦 Batch export completed: 4 files  
+📊 Overall quality score: 0.58
+✅ Kenyan relevance scores: 0.40-1.00
+🌍 Regional analysis: Nairobi, Mombasa, Kisumu
+📁 Exports saved to: exports/ directory
+```
+
 ### Quick Workflow
 
 *Demo GIF coming soon - showing installation → execution → export process*
