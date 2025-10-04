@@ -1,0 +1,234 @@
+
+    ╔═══════════════════════════════════════════════════════════════════╗
+    ║                                                                   ║
+    ║   🚀 SOVEREIGN OSINT TOOLKIT by Sarah Marion                      ║
+    ║   🔒 Security-Focused Full-Stack Developer                        ║
+    ║   📍 Advanced Kenyan-Focused Intelligence Platform                ║
+    ║                                                                   ║
+    ║   GitHub: https://github.com/Sarah-Marion/sovereign-osint-toolkit ║
+    ║   Portfolio: https://www.sarahmarion.com/                         ║
+    ║   Blog: https://blog.sarahmarion.com/                             ║
+    ║                                                                   ║
+    ╚═══════════════════════════════════════════════════════════════════╝
+    
+✅ Comprehensive Kenyan OSINT architecture loaded
+🚀 SOVEREIGN OSINT TOOLKIT - UNIFIED ARCHITECTURE
+============================================================
+
+1. RUNNING BASIC WORKFLOW:
+========================================
+
+📋 Processing: Nairobi infrastructure development
+🔍 Collecting OSINT data for: Nairobi infrastructure development
+🔍 Searching news for: Nairobi infrastructure development Kenya
+📍 Region context: general
+📊 Processing data for researcher...
+✅ Export completed: sovereign_export_researcher_20251004_041434.json
+📁 Format: json, Size: 4754 bytes
+💾 Saved: exports/sovereign_export_researcher_20251004_041434.json
+
+📋 Processing: Kenyan digital economy
+🔍 Collecting OSINT data for: Kenyan digital economy
+🔍 Searching news for: Kenyan digital economy Kenya
+📍 Region context: general
+📊 Processing data for researcher...
+✅ Export completed: sovereign_export_researcher_20251004_041434.json
+📁 Format: json, Size: 4627 bytes
+💾 Saved: exports/sovereign_export_researcher_20251004_041434.json
+
+2. RUNNING ENHANCED WORKFLOW:
+========================================
+
+==================================================
+Processing: Nairobi infrastructure development
+==================================================
+🔍 Collecting OSINT data for: Nairobi infrastructure development
+🔍 Searching news for: Nairobi infrastructure development Kenya
+📍 Region context: general
+🔍 Running correlation analysis...
+📊 Processing data for journalist with enhanced analysis...
+
+📊 ANALYSIS RESULTS:
+==================================================
+• Analyzed 1 data sources
+• Kenyan relevance score: 0.70
+• Key topics: infrastructure, development
+📈 Data Quality: moderate
+🔍 Source Reliability: standard
+🏷️  Topics Identified: infrastructure, development
+==================================================
+✅ Enhanced export completed: sovereign_export_journalist_20251004_041434.json
+📁 Format: json, Size: 5490 bytes
+💾 Saved: exports/enhanced/sovereign_export_journalist_20251004_041434.json
+📊 Analysis saved: exports/enhanced/analysis_Nairobi_infrastructure_development_journalist.json
+🔍 Collecting OSINT data for: Nairobi infrastructure development
+🔍 Searching news for: Nairobi infrastructure development Kenya
+📍 Region context: general
+🔍 Running correlation analysis...
+📊 Processing data for researcher with enhanced analysis...
+
+📊 ANALYSIS RESULTS:
+==================================================
+• Analyzed 1 data sources
+• Kenyan relevance score: 0.70
+• Key topics: infrastructure, development
+📈 Data Quality: moderate
+🔍 Source Reliability: standard
+🏷️  Topics Identified: infrastructure, development
+==================================================
+✅ Enhanced export completed: sovereign_export_researcher_20251004_041434.json
+📁 Format: json, Size: 6041 bytes
+💾 Saved: exports/enhanced/sovereign_export_researcher_20251004_041434.json
+📊 Analysis saved: exports/enhanced/analysis_Nairobi_infrastructure_development_researcher.json
+
+==================================================
+Processing: Kenyan digital economy
+==================================================
+🔍 Collecting OSINT data for: Kenyan digital economy
+🔍 Searching news for: Kenyan digital economy Kenya
+📍 Region context: general
+🔍 Running correlation analysis...
+📊 Processing data for journalist with enhanced analysis...
+
+📊 ANALYSIS RESULTS:
+==================================================
+• Analyzed 1 data sources
+• Kenyan relevance score: 0.40
+• Key topics: economy, development, technology
+📈 Data Quality: moderate
+🔍 Source Reliability: standard
+🏷️  Topics Identified: economy, development, technology
+==================================================
+✅ Enhanced export completed: sovereign_export_journalist_20251004_041434.json
+📁 Format: json, Size: 5310 bytes
+💾 Saved: exports/enhanced/sovereign_export_journalist_20251004_041434.json
+📊 Analysis saved: exports/enhanced/analysis_Kenyan_digital_economy_journalist.json
+🔍 Collecting OSINT data for: Kenyan digital economy
+🔍 Searching news for: Kenyan digital economy Kenya
+📍 Region context: general
+🔍 Running correlation analysis...
+📊 Processing data for researcher with enhanced analysis...
+
+📊 ANALYSIS RESULTS:
+==================================================
+• Analyzed 1 data sources
+• Kenyan relevance score: 0.40
+• Key topics: economy, development, technology
+📈 Data Quality: moderate
+🔍 Source Reliability: standard
+🏷️  Topics Identified: economy, development, technology
+==================================================
+✅ Enhanced export completed: sovereign_export_researcher_20251004_041434.json
+📁 Format: json, Size: 5907 bytes
+💾 Saved: exports/enhanced/sovereign_export_researcher_20251004_041434.json
+📊 Analysis saved: exports/enhanced/analysis_Kenyan_digital_economy_researcher.json
+
+==================================================
+Processing: Mombasa tourism
+==================================================
+🔍 Collecting OSINT data for: Mombasa tourism
+🔍 Searching news for: Mombasa tourism Kenya
+📍 Region context: general
+🔍 Running correlation analysis...
+📊 Processing data for journalist with enhanced analysis...
+
+📊 ANALYSIS RESULTS:
+==================================================
+• Analyzed 1 data sources
+• Kenyan relevance score: 0.60
+• Key topics: development, tourism
+📈 Data Quality: moderate
+🔍 Source Reliability: standard
+🏷️  Topics Identified: development, tourism
+==================================================
+✅ Enhanced export completed: sovereign_export_journalist_20251004_041434.json
+📁 Format: json, Size: 5448 bytes
+💾 Saved: exports/enhanced/sovereign_export_journalist_20251004_041434.json
+📊 Analysis saved: exports/enhanced/analysis_Mombasa_tourism_journalist.json
+🔍 Collecting OSINT data for: Mombasa tourism
+🔍 Searching news for: Mombasa tourism Kenya
+📍 Region context: general
+🔍 Running correlation analysis...
+📊 Processing data for researcher with enhanced analysis...
+
+📊 ANALYSIS RESULTS:
+==================================================
+• Analyzed 1 data sources
+• Kenyan relevance score: 0.60
+• Key topics: development, tourism
+📈 Data Quality: moderate
+🔍 Source Reliability: standard
+🏷️  Topics Identified: development, tourism
+==================================================
+✅ Enhanced export completed: sovereign_export_researcher_20251004_041434.json
+📁 Format: json, Size: 6026 bytes
+💾 Saved: exports/enhanced/sovereign_export_researcher_20251004_041434.json
+📊 Analysis saved: exports/enhanced/analysis_Mombasa_tourism_researcher.json
+
+3. RUNNING COMPREHENSIVE WORKFLOW:
+========================================
+
+==================================================
+Comprehensive Analysis: Nairobi infrastructure development in nairobi
+==================================================
+🔍 Comprehensive analysis for: Nairobi infrastructure development in nairobi
+🔍 Searching news for: Nairobi infrastructure development nairobi Kenya Kenya
+📍 Region context: general
+🔍 Searching news for: Nairobi infrastructure development nairobi Kenya news Kenya
+📍 Region context: general
+
+🧠 COMPREHENSIVE ANALYSIS INSIGHTS:
+============================================================
+📍 Region: nairobi
+📊 Kenyan Relevance: 1.00
+🌍 Cultural Insights: 3 found
+🗺️  Cultural Landmarks: 3 mapped
+📱 Social Media Analysis: True
+============================================================
+💾 Comprehensive export saved: exports/comprehensive/sovereign_export_researcher_20251004_041434.json
+
+==================================================
+Comprehensive Analysis: Kenyan digital economy in mombasa
+==================================================
+🔍 Comprehensive analysis for: Kenyan digital economy in mombasa
+🔍 Searching news for: Kenyan digital economy mombasa Kenya Kenya
+📍 Region context: general
+🔍 Searching news for: Kenyan digital economy mombasa Kenya news Kenya
+📍 Region context: general
+
+🧠 COMPREHENSIVE ANALYSIS INSIGHTS:
+============================================================
+📍 Region: mombasa
+📊 Kenyan Relevance: 1.00
+🌍 Cultural Insights: 2 found
+🗺️  Cultural Landmarks: 3 mapped
+📱 Social Media Analysis: True
+============================================================
+💾 Comprehensive export saved: exports/comprehensive/sovereign_export_researcher_20251004_041434.json
+
+==================================================
+Comprehensive Analysis: Mombasa tourism in kisumu
+==================================================
+🔍 Comprehensive analysis for: Mombasa tourism in kisumu
+🔍 Searching news for: Mombasa tourism kisumu Kenya Kenya
+📍 Region context: general
+🔍 Searching news for: Mombasa tourism kisumu Kenya news Kenya
+📍 Region context: general
+
+🧠 COMPREHENSIVE ANALYSIS INSIGHTS:
+============================================================
+📍 Region: kisumu
+📊 Kenyan Relevance: 1.00
+🌍 Cultural Insights: 3 found
+🗺️  Cultural Landmarks: 3 mapped
+📱 Social Media Analysis: True
+============================================================
+💾 Comprehensive export saved: exports/comprehensive/sovereign_export_researcher_20251004_041434.json
+
+4. TESTING BATCH EXPORT:
+========================================
+📦 Batch export completed: 4 files
+📊 Overall quality score: 0.58
+
+🎉 All workflows completed successfully!
+📁 Check the 'exports' directory for your results
