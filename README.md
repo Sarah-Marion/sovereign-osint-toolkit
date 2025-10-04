@@ -8,6 +8,10 @@
 ![Platform](https://img.shields.io/badge/platform-linux%20%7C%20windows%20%7C%20macos-lightgrey)
 ![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)
 ![Architecture](https://img.shields.io/badge/architecture-comprehensive-blue)
+![Downloads](https://img.shields.io/pypi/dm/sovereign-osint)
+![Last Commit](https://img.shields.io/github/last-commit/Sarah-Marion/sovereign-osint-toolkit)
+![Issues](https://img.shields.io/github/issues/Sarah-Marion/sovereign-osint-toolkit)
+![Code Size](https://img.shields.io/github/languages/code-size/Sarah-Marion/sovereign-osint-toolkit)
 
 **Advanced Open Source Intelligence with Kenyan Cultural Context Preservation**
 
@@ -122,6 +126,7 @@ The demo will:
 # Clone repository
 git clone https://github.com/your-username/sovereign-osint-toolkit.git
 cd sovereign-osint-toolkit
+pip install -e .
 
 # Run automated setup
 python setup_environment.py
@@ -150,6 +155,21 @@ pip install -r requirements.txt
 ### Set up environment variables
 cp .env.template .env
 ```
+
+### 🔧 Troubleshooting
+
+**Common Installation Issues:**
+- `ModuleNotFoundError`: Run `pip install -e .` from project root
+- Permission errors: Use `pip install --user -e .` 
+- Python path issues: Ensure you're using Python 3.8+
+- Virtual environment not activating: Use full path `source ./sovereign_env/bin/activate`
+- Dependencies conflict: Try `pip install --upgrade -r requirements.txt`
+
+**Export Issues:**
+- Single dictionary export: Wrap in list `exporter.export_data([single_dict], "journalist", "json")`
+- User type restrictions: Government exports require special permissions
+- File permission errors: Check write permissions in exports/ directory
+
 
 ## 🛠️ Usage Examples
 
@@ -214,7 +234,29 @@ collector = OSINTCollector()
 exporter = SovereignExporter()
 
 data = collector.search("Kenyan digital economy")
-export_result = exporter.export_data(data, "ngo", "json")
+export_result = exporter.export_data([data], "ngo", "json")
+
+# For single result, wrap in list:
+single_result = {"query": "test", "results": [...]}
+export_result = exporter.export_data([single_result], "journalist", "json")
+
+# For multiple results, use as-is:
+multiple_results = [
+    {"query": "test1", "results": [...]},
+    {"query": "test2", "results": [...]}
+]
+export_result = exporter.export_data(multiple_results, "researcher", "csv")
+```
+
+## Working User Types & Data Types:
+
+```python 
+# Cultural data works with these user types:
+working_user_types = ["journalist", "researcher", "ngo"]
+
+# Technical data works with developer:
+technical_data = [{"data_type": "technical", ...}]
+export_result = exporter.export_data(technical_data, "developer", "json")
 ```
 
 ## Comprehensive Architecture
@@ -297,7 +339,7 @@ The toolkit supports two architectural approaches:
 ## 📁 Project Structure
 
 ```text 
-ssovereign-osint-toolkit/
+sovereign-osint-toolkit/
 ├── src/
 │   ├── api/                       # API endpoints and routing
 │   ├── auth/                      # Authentication and authorization
@@ -470,6 +512,20 @@ This project is licensed under the MIT License - see the [LICENSE](/LICENSE) fil
 *Versioning follows Semantic Versioning (SemVer) principles*
 
 ---
+
+## 📚 Citation
+
+If you use this toolkit in academic work, please cite:
+```bibtex
+@software{sovereign_osint_2024,
+  title = {Sovereign OSINT Toolkit: Kenyan-Focused Intelligence Gathering},
+  author = {Sarah Marion},
+  year = {2025},
+  url = {https://github.com/Sarah-Marion/sovereign-osint-toolkit},
+  version = {1.0}
+}
+```
+
 
 ## ❓ Frequently Asked Questions (FAQ)
 

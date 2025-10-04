@@ -17,7 +17,7 @@ import csv
 import io
 import re
 from datetime import datetime, timezone
-from typing import Dict, List, Any, Optional
+from typing import Dict, List, Any, Optional, Union
 from pathlib import Path
 
 
@@ -310,19 +310,22 @@ class SovereignExporter:
         
         return results
 
-    def export_data(self, data: List[Dict], user_type: str = "developer", export_format: str = "json") -> Dict[str, Any]:
-        """Enhanced main export function with comprehensive error handling"""
+    def export_data(self, data: Union[Dict, List[Dict]], user_type: str = "developer", export_format: str = "json") -> Dict[str, Any]:
+        """Enhanced main export function - accepts both single Dict and List[Dict]"""
         
         if user_type not in self.export_templates:
             raise ValueError(f"Unsupported user type: {user_type}")
+
+        # Normalize input to always be List[Dict]
+        normalized_data = data if isinstance(data, list) else [data]
         
         # Validate export request with enhanced checks
-        validation_result = self._validate_export_request(data, user_type)
+        validation_result = self._validate_export_request(normalized_data, user_type)
         if not validation_result["valid"]:
             raise PermissionError(f"Export validation failed: {validation_result['issues']}")
         
         # Apply user-type specific processing
-        processed_data = self._process_for_user_type(data, user_type)
+        processed_data = self._process_for_user_type(normalized_data, user_type)
         
         # Apply anonymization if enabled
         if self.config["enable_anonymization"]:
@@ -343,6 +346,7 @@ class SovereignExporter:
             result = format_handlers[export_format](processed_data, user_type)
             result["user_type"] = user_type
             result["validation_result"] = validation_result
+            result["input_normalized"] = not isinstance(data, list)  # Track if we normalized input
             return result
         except Exception as e:
             raise RuntimeError(f"Export generation failed for {export_format}: {str(e)}")
