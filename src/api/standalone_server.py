@@ -30,8 +30,9 @@ from src.api.graphql_schema import schema
 from src.auth.user_manager import user_manager
 
 # Security configuration
-SECRET_KEY = secrets.token_urlsafe(32)
-REFRESH_SECRET_KEY = secrets.token_urlsafe(32)
+import os
+SECRET_KEY = os.getenv('JWT_SECRET_KEY', 'demo_jwt_secret_key_' + secrets.token_urlsafe(16))
+REFRESH_SECRET_KEY = os.getenv('JWT_REFRESH_SECRET_KEY', 'demo_jwt_refresh_secret_' + secrets.token_urlsafe(16))
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 REFRESH_TOKEN_EXPIRE_DAYS = 7

@@ -46,8 +46,7 @@ class UserManager:
         cursor.execute('''
             INSERT OR IGNORE INTO users (username, email, password_hash, roles)
             VALUES (?, ?, ?, ?)
-        ''', ('admin', 'admin@sovereign-osint.com', 
-              self.hash_password('Admin123!'), 'admin,analyst,user'))
+        ''', ('admin', 'admin@example.com', self.hash_password('DemoAdmin123!'), 'admin,analyst,user'))
         
         conn.commit()
         conn.close()

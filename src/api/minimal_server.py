@@ -10,12 +10,22 @@ import time
 from typing import Optional, List, Dict, Any
 import uvicorn
 
-# Simple token-based auth (no JWT dependencies)
+# Demo tokens for development - REPLACE IN PRODUCTION
 API_TOKENS = {
-    "admin": "admin_token_123",
-    "analyst": "analyst_token_456", 
-    "user": "user_token_789"
+    "admin": "demo_admin_token_CHANGE_IN_PRODUCTION_123",
+    "analyst": "demo_analyst_token_CHANGE_IN_PRODUCTION_456", 
+    "user": "demo_user_token_CHANGE_IN_PRODUCTION_789"
 }
+
+# Or for production-ready approach:
+"""
+import os
+API_TOKENS = {
+    "admin": os.getenv('ADMIN_API_TOKEN', 'demo_admin_token_CHANGE_IN_PRODUCTION'),
+    "analyst": os.getenv('ANALYST_API_TOKEN', 'demo_analyst_token_CHANGE_IN_PRODUCTION'), 
+    "user": os.getenv('USER_API_TOKEN', 'demo_user_token_CHANGE_IN_PRODUCTION')
+}
+"""
 
 # Initialize FastAPI app
 app = FastAPI(

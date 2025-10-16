@@ -451,38 +451,100 @@ The toolkit supports two architectural approaches:
 
 ```text 
 sovereign-osint-toolkit/
-├── src/
-│   ├── api/                       # API endpoints and routing
-│   ├── auth/                      # Authentication and authorization
-│   ├── collectors/                # Data collection modules
-│   ├── database/                  # Database models and operations
-│   ├── exporters/                 # Data export functionality
-│   ├── monitoring/                # System monitoring and logging
-│   ├── sovereign_osint/           # Core OSINT framework
-│   │   ├── __init__.py
-│   │   ├── collectors.py          # KenyanOSINTCollector
-│   │   ├── analyzers.py           # KenyanDataAnalyzer
-│   │   └── geospatial.py          # KenyanGeospatialAnalyzer
-│   ├── utils/                     # Utility functions
-│   └── visualization/             # Data visualization tools
-├── tests/                         # Test suite
-├── config/                        # Configuration files
-├── docs/                          # Documentation
-│   ├── DEPLOYMENT.md
-│   ├── USAGE.md
-│   ├── SECURITY.md
-│   └── PERFORMANCE.md
-├── examples/                      # Usage examples
-├── exports/                       # Generated export files
-│   ├── enhanced/                  # Enhanced workflow outputs
-│   ├── comprehensive/             # Comprehensive architecture outputs
-│   └── batch_test/                # Batch export results
-├── virtual/                       # Virtual environment (gitignored)
-├── main.py                        # Application entry point
-├── api_runner.py                  # API server entry point
-├── setup_environment.py           # Environment setup
-├── deploy.sh                      # Deployment script
-└── requirements.txt
+├── config/                           # Configuration files for the OSINT toolkit
+│   ├── ethical_boundaries.json      # Defines ethical boundaries for data collection
+│   ├── export_profiles.yaml         # Export profile configurations  
+│   ├── kenya_regions.json           # Kenyan geographical regions data
+│   ├── settings.yaml                # Main application settings
+│   └── use_cases.json               # Predefined use cases for the toolkit
+├── database/                         # Database-related files
+│   └── optimize.sql                 # SQL scripts for database optimization
+├── docs/                            # Documentation and project guides
+│   ├── images/                      # Documentation images and assets
+│   ├── protocols/                   # Security and operational protocols
+│   ├── BRANDING.md                  # Branding guidelines for the project
+│   ├── ethical_framework.md         # Ethical framework for OSINT operations
+│   ├── export_demo.py               # Demonstration scripts for data export
+│   └── EXPORT_IMPROVEMENTS.md       # Improvements planned for export functionality
+├── examples/                        # Example usage and implementation samples
+├── exports/                         # Default directory for exported data
+├── src/                            # Main source code directory
+│   ├── analyzers/                  # Data analysis and correlation modules
+│   │   ├── __init__.py             # Package initialization
+│   │   ├── sovereign_corelator.py  # Core data correlation engine
+│   │   └── sovereign_ml_detector.py # Machine learning detection capabilities
+│   ├── api/                        # API endpoints and web server components
+│   │   ├── __init__.py             # Package initialization
+│   │   ├── core.py                 # Core API functionality and routes
+│   │   ├── graphql_schema.py       # GraphQL schema definitions
+│   │   ├── main.py                 # Main API server entry point
+│   │   ├── minimal_server.py       # Lightweight API server implementation
+│   │   └── standalone_server.py    # Standalone server implementation
+│   ├── auth/                       # Authentication and authorization system
+│   │   ├── __init__.py             # Package initialization
+│   │   ├── core.py                 # Core authentication logic
+│   │   ├── models.py               # Data models for authentication
+│   │   └── user_manager.py         # User management functionality
+│   ├── collectors/                 # Data collection modules
+│   │   ├── government_ke/          # Kenyan government data sources
+│   │   ├── social_media/           # Social media data collection
+│   │   ├── __init__.py             # Package initialization
+│   │   ├── osint_collector.py      # Main OSINT collection engine
+│   │   └── real_time_monitor.py    # Real-time monitoring capabilities
+│   ├── database/                   # Database models and operations
+│   │   └── __init__.py             # Package initialization
+│   ├── exporters/                  # Data export functionality
+│   │   ├── __init__.py             # Package initialization
+│   │   └── test_exporter.py        # Export functionality testing
+│   ├── monitoring/                 # System monitoring and logging
+│   │   ├── __init__.py             # Package initialization
+│   │   └── sovereign_monitor.py    # Main monitoring system
+│   ├── sovereign_osint/            # Core OSINT framework
+│   │   ├── __init__.py             # Package initialization
+│   │   ├── analyzers.py            # Analysis components
+│   │   ├── collectors.py           # Collection components
+│   │   ├── geospatial.py           # Geospatial analysis capabilities
+│   │   └── sovereign_framework.py  # Main framework implementation
+│   ├── sovereign_osint_toolkit.egg-info/ # Python package metadata
+│   ├── utils/                      # Utility functions and helpers
+│   │   ├── __init__.py             # Package initialization
+│   │   ├── anonymization.py        # Data anonymization utilities
+│   │   ├── consent_manager.py      # User consent management
+│   │   ├── kenyan_context.py       # Kenya-specific context utilities
+│   │   ├── security.py             # Security utilities and functions
+│   │   └── sovereign_framework.py  # Framework utility functions
+│   ├── visualization/              # Data visualization components
+│   │   ├── dashboard/              # Web dashboard implementation
+│   │   │   ├── components/         # Dashboard UI components
+│   │   │   ├── __init__.py         # Package initialization
+│   │   │   └── app.py              # Main dashboard application
+│   │   └── __init__.py             # Package initialization
+│   └── __init__.py                 # Main package initialization
+├── tests/                          # Test suite for the application
+│   ├── __init__.py                 # Test package initialization
+│   └── test_exporter.py            # Export functionality tests
+├── .gitignore                      # Git ignore rules
+├── ABOUT.md                        # Project overview and description
+├── api_runner.py                   # API server runner script
+├── AUTHOR.md                       # Author information and credits
+├── CONTRIBUTING.md                 # Contribution guidelines
+├── deploy.sh                       # Deployment automation script
+├── DEPLOYMENT.md                   # Deployment documentation
+├── docker-compose.yml              # Docker Compose configuration
+├── Dockerfile                      # Docker container definition
+├── intro.svg                       # Project introduction graphic
+├── LICENSE                         # Project license file
+├── main.py                         # Main application entry point
+├── PERFORMANCE.md                  # Performance documentation
+├── README.md                       # Main project documentation
+├── requirements.txt                # Python dependencies
+├── SECURITY.md                     # Security policies and procedures
+├── setup_environment.py            # Environment setup script
+├── setup.py                        # Python package setup
+├── sovereign-osint-toolkit-terminal-slide.svg # Terminal slide graphic
+├── USAGE.md                        # Usage instructions and examples
+├── users.db                        # User database file
+└── .env.template                   # Environment variables template
 ```
 
 # 🎪 Use Cases
